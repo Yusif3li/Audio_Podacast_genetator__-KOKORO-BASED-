@@ -70,6 +70,11 @@ Follow these steps to set up the project on your local machine.
         GEMINI_API_KEY=AIzaSy...your...key...here...
         ```
 
+5.  **Install Ffmpeg:**
+    * Download the latest release build from gyan.dev/ffmpeg/builds
+    * Extract the archive to a permanent location
+    * Add the bin folder (e.g., C:\ffmpeg\bin) to your Windows PATH environment variable.
+    
 ---
 
 ### Usage

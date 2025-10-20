@@ -80,23 +80,15 @@ def generate_podcast_dialogue(text, host_voice, guest_voice):
                 status_update = f"Status: Synthesizing paragraph {current_paragraph}/{total_paragraphs} (Speaker: {speaker})"
                 logging.info(status_update)
                 yield None, status_update
+                
                 synthesis_generator = tts_instance(text=paragraph_text, voice=selected_voice)
+                
                 for item in synthesis_generator:
                     if hasattr(item, 'output') and hasattr(item.output, 'audio') and item.output.audio is not None:
                         audio_tensor = item.output.audio
                         chunk_samples = audio_tensor.detach().cpu().numpy()
                         full_audio_chunks.append(chunk_samples)
-                        combined_stream_audio = np.concatenate(full_audio_chunks)
-                        yield prepare_audio_for_gradio(combined_stream_audio, SAMPLE_RATE), status_update
-
-        if not full_audio_chunks:
-            yield None, "Error: No audio was generated from the script."
-            return
-
-        final_status = f"Status: Finished! Total paragraphs: {total_paragraphs}."
-        logging.info(final_status)
-        final_audio = np.concatenate(full_audio_chunks)
-        yield prepare_audio_for_gradio(final_audio, SAMPLE_RATE), final_status
+                        yield prepare_audio_for_gradio(chunk_samples, SAMPLE_RATE), status_update
 
         if not full_audio_chunks:
             yield None, "Error: No audio was generated from the script."
@@ -126,7 +118,7 @@ with gr.Blocks(theme=gr.themes.Soft(primary_hue="blue", secondary_hue="sky")) as
         
         with gr.Column(scale=1):
             status_indicator = gr.Markdown("Status: Ready")
-            audio_output = gr.Audio(label="Podcast Output", autoplay=True)
+            audio_output = gr.Audio(label="Podcast Output", autoplay=True, streaming=True)
 
     submit_button.click(
         fn=generate_podcast_dialogue,
