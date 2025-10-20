@@ -1,0 +1,17 @@
+Flask
+dotenv
+Flask-Cors
+Flask-SSE
+gradio
+torch
+numpy
+soundfile
+kokoro==0.9.4
+huggingface_hub
+hf_xet
+loguru
+misaki
+transformers
+instructor
+google.generativeai==0.8.3
+mlx-audio; platform_machine == "arm64" and sys_platform == "darwin"

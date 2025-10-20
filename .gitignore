@@ -1,0 +1,32 @@
+# ## Environments
+# Ignore environment variables and virtual environments
+.env*
+!.env.example
+.venv/
+venv/
+env1/
+env_*
+
+# ## Python
+# Ignore Python cache files and compiled files
+__pycache__/
+*.pyc
+
+# ## Node.js / Frontend
+# Ignore Node dependencies and Next.js build output
+node_modules/
+/nextjs-frontend/.next/
+/nextjs-frontend/out/
+
+# ## Build & Distribution
+# Ignore common build output directories
+build/
+dist/
+
+# ## Logs
+# Ignore log files
+*.log
+
+# ## OS / Editor specific
+# Ignore macOS specific files
+.DS_Store
